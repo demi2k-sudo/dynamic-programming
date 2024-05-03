@@ -1,10 +1,11 @@
 def allConstruct(target, wordBank, memo=None):
+    
     if memo is None:
-        memo = {}
-        
+        memo={}
+    
     if target in list(memo.keys()):
         return memo[target]
-        
+    
     if target == "":
         return [[]]
     
@@ -12,10 +13,13 @@ def allConstruct(target, wordBank, memo=None):
     
     for i in wordBank:
         if target[:len(i)] == i or target == i:
+            # print(target," ",i," ")
             res = allConstruct(target[len(i):],wordBank,memo)
-            for j in res:
-                j.insert(0,i)
-            final+=res
+            targetWays = [[i] + way for way in res]
+            # print(targetWays)
+            final.extend(targetWays)
+            
+    # print(final)
     memo[target] = final
     return final
 
